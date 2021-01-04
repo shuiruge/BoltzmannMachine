@@ -3,6 +3,19 @@
 <style|generic>
 
 <\body>
+  <section|Notations>
+
+  <\itemize>
+    <item>Let <math|x=<around*|{|x<rsub|1>,\<ldots\>,x<rsub|n>|}>>, then
+    <math|x\\x<rsub|i>\<assign\><around*|{|x<rsub|j>\|j=1,\<ldots\>,i-1,i+1,\<ldots\>,n|}>>.
+
+    <item><math|p,q> for probabilities.
+
+    <item><math|X,Y,Z,\<ldots\>> for random variables.
+
+    <item><math|x,y,z,\<ldots\>> for ordinary variables.
+  </itemize>
+
   <section|Prelimiary>
 
   <subsection|Markov Chain>
@@ -127,6 +140,16 @@
     restriction on maximizing a priori.
   </remark>
 
+  <\theorem>
+    [Entropy] Given energy-based model <math|<around*|(|M,E|)>>, entropy
+
+    <\equation*>
+      H=<big|int><rsub|M>\<mathd\>x p<rsub|E><around*|(|x|)>
+      E<around*|(|x|)>-ln<around*|[|<big|int><rsub|M>\<mathd\>x<rprime|'>
+      \<mathe\><rsup|- E<around*|(|x<rprime|'>|)>>|]>.
+    </equation*>
+  </theorem>
+
   <subsubsection|Activity Rule>
 
   <\lemma>
@@ -240,43 +263,136 @@
     </equation*>
   </theorem>
 
+  <subsubsection|Relation to Maximizing Entropy
+  Principle<reference|Information Theory and Statitical Mechanics>>
+
+  <\theorem>
+    [Maximizing Entropy Principle] Given a measure space <math|M> and a set
+    of observable <math|<around*|{|f<rsub|i>:M\<rightarrow\>\<bbb-R\>\|i=1,\<ldots\>,n|}>>.
+    For <math|D\<assign\><around*|{|x<rsub|1>,\<ldots\>,x<rsub|N>|}>> a
+    dataset. For any probability density function <math|p> on <math|M>, let
+    <math|H<around*|(|p|)>> its entropy. We have, if
+
+    <\equation*>
+      p<rsub|\<star\>>\<assign\>argmax<rsub|p>H<around*|(|p|)>
+    </equation*>
+
+    with constrains <math|\<bbb-E\><rsub|x\<sim\>p<rsub|\<star\>><around*|(|x|)>><around*|[|f<rsub|i><around*|(|x|)>|]>=\<bbb-E\><rsub|x\<sim\>D><around*|[|f<rsub|i><around*|(|x|)>|]>>
+    for all <math|i=1,\<ldots\>,n>, then <math|p<rsub|\<star\>><around*|(|x|)>>
+    must have the form
+
+    <\equation*>
+      p<rsub|\<star\>><around*|(|x|)>=<frac|\<mathe\><rsup|-E<around*|(|x|)>>|<big|int><rsub|M>\<mathd\>x<rprime|'>
+      \<mathe\><rsup|-E<around*|(|x<rprime|'>|)>>>,
+    </equation*>
+
+    where <math|E<around*|(|x|)>\<assign\>-<big|sum><rsub|i>\<lambda\><rsub|i>
+    f<rsub|i><around*|(|x|)>>.
+  </theorem>
+
+  <\proof>
+    Denote <math|<wide|f|\<bar\>><rsub|i>\<assign\>\<bbb-E\><rsub|x\<sim\>D><around*|[|f<rsub|i><around*|(|x|)>|]>>,
+    then the Lagrangian becomes
+
+    <\equation*>
+      L<around*|[|p|]>=-<big|int><rsub|M>\<mathd\>x p<around*|(|x|)> ln
+      p<around*|(|x|)>+<big|sum><rsub|i>\<lambda\><rsub|i><around*|(|<big|int><rsub|M>\<mathd\>x
+      p<around*|(|x|)> f<rsub|i><around*|(|x|)>-<wide|f|\<bar\>><rsub|i>|)>+\<mu\><around*|(|1-<big|int><rsub|M>\<mathd\>x
+      p<around*|(|x|)>|)>,
+    </equation*>
+
+    where <math|<around*|{|\<lambda\><rsub|i>|}>> and <math|\<mu\>> are
+    Lagrangian multipliers. We have, at stable point <math|p<rsub|\<star\>>>,
+    for <math|\<forall\>x\<in\>M>,
+
+    <\equation*>
+      0=<frac|\<delta\>L|\<delta\>p><around*|[|p<rsub|\<star\>>|]><around*|(|x|)>=-ln
+      p<rsub|\<star\>><around*|(|x|)>+<big|sum><rsub|i>\<lambda\><rsub|i>
+      f<rsub|i><around*|(|x|)>-<around*|(|\<mu\>+1|)>,
+    </equation*>
+
+    implying
+
+    <\equation*>
+      p<rsub|\<star\>><around*|(|x|)>=<frac|\<mathe\><rsup|-E<around*|(|x|)>>|<big|int><rsub|M>\<mathd\>x<rprime|'>
+      \<mathe\><rsup|-E<around*|(|x<rprime|'>|)>>>,
+    </equation*>
+
+    where <math|E<around*|(|x|)>\<assign\>-<big|sum><rsub|i>\<lambda\><rsub|i>
+    f<rsub|i><around*|(|x|)>>.
+  </proof>
+
   <subsection|Boltzmann Machine>
 
-  TODO: Re-write this part.
-
   <\definition>
-    [Binary Boltzmann Machine] A binary Boltzmann machine is a model on
-    <math|<around*|{|0,1|}><rsup|n>>, equipped with
-
-    <\enumerate-numeric>
-      <item>energy
-
-      <\equation*>
-        E<around*|(|x|)>=-<frac|1|2>W<rsub|\<alpha\>\<beta\>>x<rsup|\<alpha\>>x<rsup|\<beta\>>-b<rsub|\<alpha\>>
-        x<rsup|\<alpha\>>,
-      </equation*>
-
-      where <math|W\<in\>\<bbb-R\><rsup|n\<times\>n>> being symmetric and
-      diagnal-vanishing and <math|b\<in\>\<bbb-R\><rsup|n>>, and
-
-      <item>update-rule
-
-      <\equation*>
-        f<rsub|\<alpha\>><around*|(|x|)>=\<sigma\><around*|(|W<rsub|\<alpha\>\<beta\>>x<rsup|\<beta\>>+b<rsub|\<alpha\>>|)>,
-      </equation*>
-
-      where <math|\<sigma\>:\<bbb-R\><rsup|n>\<rightarrow\><around*|{|0,1|}><rsup|n>>
-
-      <\align>
-        <tformat|<table|<row|<cell|\<sigma\><rsup|\<alpha\>><around*|(|x|)>=>|<cell|1
-        if x<rsup|\<alpha\>>\<geqslant\>0;>>|<row|<cell|>|<cell|0 if
-        x<rsup|\<alpha\>>\<less\>0.>>>>
-      </align>
-    </enumerate-numeric>
+    [Binary Boltzmann Machine] An <math|n>-dimensional binary Boltzmann
+    machine <math|<around*|(|W,b|)>> is an energy-based model with
+    <math|M=<around*|{|0,1|}><rsup|n>> and
+    <math|E<around*|(|x|)>=-<frac|1|2>W<rsub|\<alpha\>\<beta\>>x<rsup|\<alpha\>>x<rsup|\<beta\>>-b<rsub|\<alpha\>>
+    x<rsup|\<alpha\>>>, where <math|W\<in\>\<bbb-R\><rsup|n\<times\>n>> being
+    symmetric and diagnal-vanishing and <math|b\<in\>\<bbb-R\><rsup|n>>.
   </definition>
 
+  <\theorem>
+    [Activity Rule of Binary Boltzmann Machine] Let <math|<around*|(|W,b|)>>
+    an <math|n>-dimensional binary Boltzmann machine, then given
+    <math|\<forall\>\<alpha\>\<in\><around*|{|1,\<ldots\>,n|}>>
+
+    <\equation*>
+      p<around*|(|x<rsup|\<alpha\>>\|x\\x<rsup|\<alpha\>>|)>=\<sigma\><around*|(|W<rsup|\<alpha\>\<beta\>>x<rsub|\<beta\>>+b<rsup|\<alpha\>>|)>,
+    </equation*>
+
+    where <math|\<sigma\><around*|(|x|)>\<assign\>1/<around*|(|1+\<mathe\><rsup|-x>|)>>.
+  </theorem>
+
+  <\proof>
+    Directly,
+
+    <\align>
+      <tformat|<table|<row|<cell|<frac|p<around*|(|x<rsup|\<alpha\>>=1\|x\\x<rsup|\<alpha\>>|)>|p<around*|(|x<rsup|\<alpha\>>=0\|x\\x<rsup|\<alpha\>>|)>>>|<cell|=<frac|p<around*|(|x<rsup|\<alpha\>>=1,x\\x<rsup|\<alpha\>>|)>|p<around*|(|x<rsup|\<alpha\>>=0,x\\x<rsup|\<alpha\>>|)>>>>|<row|<cell|>|<cell|=<frac|p<around*|(|x<rsup|\<alpha\>>=1,x\\x<rsup|\<alpha\>>|)>|p<around*|(|x<rsup|\<alpha\>>=0,x\\x<rsup|\<alpha\>>|)>>>>|<row|<cell|>|<cell|=exp<around*|(|-E<around*|(|x<rsup|\<alpha\>>=1,x\\x<rsup|\<alpha\>>|)>+E<around*|{|x<rsup|\<alpha\>>=0,x\\x<rsup|\<alpha\>>|}>|)>>>|<row|<cell|>|<cell|=exp<around*|(|W<rsup|\<alpha\>\<beta\>>x<rsub|\<beta\>>+b<rsup|\<alpha\>>|)>.>>>>
+    </align>
+
+    Thus
+
+    <\align>
+      <tformat|<table|<row|<cell|p<around*|(|x<rsup|\<alpha\>>=1\|x\\x<rsup|\<alpha\>>|)>>|<cell|=<frac|p<around*|(|x<rsup|\<alpha\>>=1\|x\\x<rsup|\<alpha\>>|)>|p<around*|(|x<rsup|\<alpha\>>=1\|x\\x<rsup|\<alpha\>>|)>+p<around*|(|x<rsup|\<alpha\>>=0\|x\\x<rsup|\<alpha\>>|)>>>>|<row|<cell|>|<cell|=<frac|1|1+<frac|p<around*|(|x<rsup|\<alpha\>>=0\|x\\x<rsup|\<alpha\>>|)>|p<around*|(|x<rsup|\<alpha\>>=1\|x\\x<rsup|\<alpha\>>|)>>>>>|<row|<cell|>|<cell|=<frac|1|1+exp<around*|(|W<rsup|\<alpha\>\<beta\>>x<rsub|\<beta\>>+b<rsup|\<alpha\>>|)>>.>>>>
+    </align>
+  </proof>
+
+  <\definition>
+    [Gaussian Boltzmann Machine] An <math|n>-dimensional Gaussian Boltzmann
+    machine <math|<around*|(|W,b|)>> is an energy-based model with
+    <math|M=\<bbb-R\><rsup|n>> and
+
+    <\equation*>
+      E<around*|(|x|)>=-<frac|1|2> W<rsub|\<alpha\>\<beta\>>x<rsup|\<alpha\>>x<rsup|\<beta\>>+<frac|1|2>
+      <around*|(|x<rsup|\<alpha\>>-b<rsup|\<alpha\>>|)>
+      <around*|(|x<rsub|\<alpha\>>-b<rsub|\<alpha\>>|)>,
+    </equation*>
+
+    where <math|W\<in\>\<bbb-R\><rsup|n\<times\>n>> being symmetric and
+    diagnal-vanishing and <math|b\<in\>\<bbb-R\><rsup|n>>.
+  </definition>
+
+  <\align>
+    <tformat|<table|<row|<cell|<big|int><rsub|\<bbb-R\>>\<mathd\>x<rsup|<wide|\<alpha\>|^>>\<mathe\><rsup|-E<around*|(|x|)>>>|<cell|=exp<around*|(|-<frac|1|2><big|sum><rsub|\<alpha\>,\<beta\>\<neq\><wide|\<alpha\>|^>>W<rsub|\<alpha\>\<beta\>>x<rsup|\<alpha\>>x<rsup|\<beta\>>+<frac|1|2><big|sum><rsub|\<alpha\>\<neq\><wide|\<alpha\>|^>>
+    <around*|(|x<rsup|\<alpha\>>-b<rsup|\<alpha\>>|)>
+    <around*|(|x<rsub|\<alpha\>>-b<rsub|\<alpha\>>|)>|)>>>|<row|<cell|>|<cell|\<times\><big|int><rsub|\<bbb-R\>>\<mathd\>x<rsup|<wide|\<alpha\>|^>>exp<around*|(|-<big|sum><rsub|\<beta\>\<neq\><wide|\<alpha\>|^>>W<rsub|<wide|\<alpha\>|^>\<beta\>>x<rsup|<wide|\<alpha\>|^>>x<rsup|\<beta\>>+<frac|1|2>
+    <around*|(|x<rsup|<wide|\<alpha\>|^>>-b<rsup|<wide|\<alpha\>|^>>|)><rsup|2>|)>,>>>>
+  </align>
+
+  where we explicitly write down the summation for clearness. The 2nd term on
+  rhs is a Gaussian integral
+
+  <\equation*>
+    <big|int><rsub|\<bbb-R\>>\<mathd\>x<rsup|<wide|\<alpha\>|^>>exp<around*|(|-<big|sum><rsub|\<beta\>\<neq\><wide|\<alpha\>|^>>W<rsub|<wide|\<alpha\>|^>\<beta\>>x<rsup|<wide|\<alpha\>|^>>x<rsup|\<beta\>>+<frac|1|2>
+    <around*|(|x<rsup|<wide|\<alpha\>|^>>-b<rsup|<wide|\<alpha\>|^>>|)><rsup|2>|)>=<sqrt|2
+    \<pi\>> \<mathe\><rsup|-b<rsub|<wide|\<alpha\>|^>><rsup|2>/2>
+    exp<around*|(|<frac|1|2><around*|(|<big|sum><rsub|\<beta\>\<neq\><wide|\<alpha\>|^>>W<rsub|<wide|\<alpha\>|^>\<beta\>>x<rsup|\<beta\>><rsub|>+b<rsub|<wide|\<alpha\>|^>>|)><rsup|2>|)>.
+  </equation*>
+
   <\remark>
-    The probabilistic model where
+    [TODO: Re-write this] The probabilistic model where
 
     <\equation*>
       p<around*|(|x|)>=<big|prod><rsub|\<alpha\>=1><rsup|n>Bernoulli<around*|(|p<rsub|\<alpha\>><around*|(|x|)>|)>,
@@ -352,6 +468,12 @@
       <item>
     </enumerate-numeric>
   </theorem>
+
+  <section|References>
+
+  <\enumerate-numeric>
+    <item>Information Theory and Statitical Mechanics, Jaynes.
+  </enumerate-numeric>
 </body>
 
 <initial|<\collection>
@@ -360,30 +482,81 @@
 <\references>
   <\collection>
     <associate|auto-1|<tuple|1|?>>
-    <associate|auto-10|<tuple|2.1.3|?>>
-    <associate|auto-11|<tuple|2.2|?>>
-    <associate|auto-12|<tuple|2.2.1|?>>
-    <associate|auto-13|<tuple|3.1|?>>
-    <associate|auto-14|<tuple|2.2.2|?>>
-    <associate|auto-2|<tuple|1.1|?>>
-    <associate|auto-3|<tuple|1.1.1|?>>
-    <associate|auto-4|<tuple|1.1.2|?>>
-    <associate|auto-5|<tuple|1.2|?>>
-    <associate|auto-6|<tuple|2|?>>
-    <associate|auto-7|<tuple|2.1|?>>
-    <associate|auto-8|<tuple|2.1.1|?>>
-    <associate|auto-9|<tuple|2.1.2|?>>
-    <associate|footnote-1|<tuple|1|?>>
-    <associate|footnr-1|<tuple|1|?>>
+    <associate|auto-10|<tuple|3.1.2|?>>
+    <associate|auto-11|<tuple|3.1.3|?>>
+    <associate|auto-12|<tuple|3.1.4|?>>
+    <associate|auto-13|<tuple|3.2|?>>
+    <associate|auto-14|<tuple|3.2.1|?>>
+    <associate|auto-15|<tuple|4|?>>
+    <associate|auto-2|<tuple|2|?>>
+    <associate|auto-3|<tuple|2.1|?>>
+    <associate|auto-4|<tuple|2.1.1|?>>
+    <associate|auto-5|<tuple|2.1.2|?>>
+    <associate|auto-6|<tuple|2.2|?>>
+    <associate|auto-7|<tuple|3|?>>
+    <associate|auto-8|<tuple|3.1|?>>
+    <associate|auto-9|<tuple|3.1.1|?>>
   </collection>
 </references>
 
 <\auxiliary>
   <\collection>
     <\associate|toc>
-      <with|par-left|<quote|1tab>|1<space|2spc>Definition
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>Notations>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-1>>
+      <no-break><pageref|auto-1><vspace|0.5fn>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|2<space|2spc>Prelimiary>
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-2><vspace|0.5fn>
+
+      <with|par-left|<quote|1tab>|2.1<space|2spc>Markov Chain
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-3>>
+
+      <with|par-left|<quote|2tab>|2.1.1<space|2spc>Definitions
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-4>>
+
+      <with|par-left|<quote|2tab>|2.1.2<space|2spc>Detailed Balance
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-5>>
+
+      <with|par-left|<quote|1tab>|2.2<space|2spc>Gibbs Sampling
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-6>>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|3<space|2spc>Review>
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-7><vspace|0.5fn>
+
+      <with|par-left|<quote|1tab>|3.1<space|2spc>Energy Based Model
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-8>>
+
+      <with|par-left|<quote|2tab>|3.1.1<space|2spc>Activity Rule
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-9>>
+
+      <with|par-left|<quote|2tab>|3.1.2<space|2spc>Learning Rule
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-10>>
+
+      <with|par-left|<quote|2tab>|3.1.3<space|2spc>Effective Energy
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-11>>
+
+      <with|par-left|<quote|2tab>|3.1.4<space|2spc>Relation to Maximizing
+      Entropy Principle <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-12>>
+
+      <with|par-left|<quote|1tab>|3.2<space|2spc>Boltzmann Machine
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-13>>
+
+      <with|par-left|<quote|2tab>|3.2.1<space|2spc>Restricted Boltzmann
+      Machine <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-14>>
     </associate>
   </collection>
 </auxiliary>
