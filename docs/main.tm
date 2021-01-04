@@ -11,14 +11,20 @@
 
     <item><math|p,q> for probabilities.
 
-    <item><math|X,Y,Z,\<ldots\>> for random variables.
+    <item><math|X,Y,Z,\<ldots\>> for random variables. s
 
     <item><math|x,y,z,\<ldots\>> for ordinary variables.
+
+    <item><math|x<rsub|i>> is the <math|i>th value in the alphabet
+    <math|A<rsub|X>> of <math|X>, for which the probability is
+    <math|p<rsub|X><around*|(|x<rsub|i>|)>>, or
+    <math|p<around*|(|x<rsub|i>|)>> when <math|X> is the unique random
+    variable in the situation.
   </itemize>
 
   <section|Prelimiary>
 
-  <subsection|Markov Chain>
+  <subsection|Markov Chain (TODO)>
 
   <subsubsection|Definitions>
 
@@ -79,7 +85,7 @@
     chain.
   </proof>
 
-  <subsection|Gibbs Sampling>
+  <subsection|Gibbs Sampling (TODO)>
 
   <\definition>
     [Gibbs Sampling] Let <math|X=<around*|(|X<rsub|1>,\<ldots\>,X<rsub|n>|)>>
@@ -111,6 +117,148 @@
       p<around*|(|x<rprime|'>|)>.>>>>
     </align>
   </proof>
+
+  <subsection|Information Theory>
+
+  <\theorem>
+    [Entropy]<reference|Information Theory, Axiomatic Foundations,
+    Connections to Statistics> Let <math|S\<assign\><around*|{|X:X is a
+    discrete random variable|}>>. Define <math|H:S\<rightarrow\>\<bbb-R\>>
+    s.t.
+
+    <\enumerate-numeric>
+      <item><math|H<around*|(|X|)>> depends only on <math|p<rsub|X>>.
+
+      <item>Given positive integer <math|k>, <math|H<around*|(|X|)><rsub|>>
+      on <math|<around*|{|X\<in\>S:<around*|\||A<rsub|X>|\|>=k|}>> reaches
+      its maximum at <math|X> for which <math|p<around*|(|x<rsub|i>|)>\<equiv\>1/k>
+      for <math|\<forall\>i=1,\<ldots\>,k>.
+
+      <item>Given <math|X>, for <math|\<forall\>Y> with
+      <math|<around*|\||A<rsub|Y>|\|>\<gtr\><around*|\||A<rsub|X>|\|>>, 1)
+      for <math|i=1,\<ldots\>,<around*|\||A<rsub|X>|\|>>,
+      <math|p<rsub|Y><around*|(|y<rsub|i>|)>=p<rsub|X><around*|(|x<rsub|i>|)>>,
+      and 2) for <math|\<forall\>i\<gtr\><around*|\||A<rsub|X>|\|>>,
+      <math|p<rsub|Y><around*|(|y<rsub|i>|)>\<equiv\>0>, we have
+      <math|H<around*|(|X|)>=H<around*|(|Y|)>>.
+
+      <item>For <math|\<forall\>X,Y\<in\>S>, define
+      <math|H<around*|(|Y\|X|)>=<big|sum><rsub|x\<in\>A<rsub|X>>p<rsub|X><around*|(|y|)>
+      H<around*|(|Y\|x|)>>, we have <math|H<around*|(|X,Y|)>=H<around*|(|X|)>+H<around*|(|Y\|X|)>>.
+    </enumerate-numeric>
+
+    Then, we have
+
+    <\equation*>
+      H<around*|(|X|)>=<big|sum><rsub|x\<in\>A<rsub|X>>p<around*|(|x|)>
+      log<rsub|b> p<around*|(|x|)>,
+    </equation*>
+
+    for any <math|b\<gtr\>1>.
+  </theorem>
+
+  <\remark>
+    [Entropy of Continous Random Variable] Let <math|X> a continous random
+    variable. Define
+
+    <\equation*>
+      H<around*|(|X|)>\<assign\><big|int>\<mathd\>x p<around*|(|x|)> ln
+      p<around*|(|x|)>.
+    </equation*>
+
+    Let <math|\<mathd\>x\<rightarrow\>\<Delta\>x>, which implies
+    <math|p<around*|(|x|)>\<rightarrow\>p<around*|(|x<rsub|i>|)>/\<Delta\>x>,
+    <math|>then
+
+    <\align>
+      <tformat|<table|<row|<cell|H<around*|(|X|)>=>|<cell|<big|int>\<mathd\>x
+      p<around*|(|x|)> ln p<around*|(|x|)>>>|<row|<cell|\<rightarrow\>>|<cell|<space|10spc><around*|{|p<around*|(|x|)>\<rightarrow\>p<around*|(|x<rsub|i>|)>/\<Delta\>x|}>>>|<row|<cell|>|<cell|<big|sum><rsub|i>
+      p<around*|(|x<rsub|i>|)> ln <around*|[|p<around*|(|x<rsub|i>|)>/\<Delta\>x|]>>>|<row|<cell|=>|<cell|<space|10spc>{arithmetic}>>|<row|<cell|>|<cell|<big|sum><rsub|i>
+      p<around*|(|x<rsub|i>|)> ln p<around*|(|x<rsub|i>|)>+<big|sum><rsub|i>
+      p<around*|(|x<rsub|i>|)> ln \<Delta\>x>>|<row|<cell|=>|<cell|<space|10spc><around*|{|<big|sum><rsub|i>
+      p<around*|(|x<rsub|i>|)>=1|}>>>|<row|<cell|>|<cell|<big|sum><rsub|i>
+      p<around*|(|x<rsub|i>|)> ln p<around*|(|x<rsub|i>|)>+ ln
+      \<Delta\>x.>>>>
+    </align>
+
+    Thus we see, we can discuss the entropy of a continous random variable if
+    we only care about the relative value of it.
+  </remark>
+
+  <\theorem>
+    [Maximizing Entropy Principle]<reference|Information Theory and
+    Statitical Mechanics, Jaynes> Given a measure space <math|M> and a set of
+    observable <math|<around*|{|f<rsub|i>:M\<rightarrow\>\<bbb-R\>\|i=1,\<ldots\>,n|}>>.
+    For <math|D\<assign\><around*|{|x<rsub|1>,\<ldots\>,x<rsub|N>|}>> a
+    dataset. For any probability density function <math|p> on <math|M>, let
+    <math|H<around*|(|p|)>> its entropy. We have, if
+
+    <\equation*>
+      p<rsub|\<star\>>\<assign\>argmax<rsub|p>H<around*|(|p|)>
+    </equation*>
+
+    with constrains <math|\<bbb-E\><rsub|x\<sim\>p<rsub|\<star\>><around*|(|x|)>><around*|[|f<rsub|i><around*|(|x|)>|]>=\<bbb-E\><rsub|x\<sim\>D><around*|[|f<rsub|i><around*|(|x|)>|]>>
+    for all <math|i=1,\<ldots\>,n>, then <math|p<rsub|\<star\>><around*|(|x|)>>
+    must have the form
+
+    <\equation*>
+      p<rsub|\<star\>><around*|(|x|)>=<frac|exp<around*|{|-<big|sum><rsub|i=1><rsup|n>\<lambda\><rsub|i>
+      f<rsub|i><around*|(|x|)>|}>|Z<around*|(|\<lambda\><rsub|1>,\<ldots\>,\<lambda\><rsub|n>|)>>,
+    </equation*>
+
+    where <math|Z<around*|(|\<lambda\><rsub|1>,\<ldots\>,\<lambda\><rsub|n>|)>\<assign\><big|int><rsub|M>\<mathd\>x
+    exp<around*|{|-<big|sum><rsub|i=1><rsup|n>\<lambda\><rsub|i>
+    f<rsub|i><around*|(|x|)>|}>>. (Since we care about the relative value of
+    entropy, being continous or not is irrelavent in this situation. We can
+    use continous or discrete notations freely.)
+  </theorem>
+
+  <\proof>
+    Denote <math|<wide|f|\<bar\>><rsub|i>\<assign\>\<bbb-E\><rsub|x\<sim\>D><around*|[|f<rsub|i><around*|(|x|)>|]>>,
+    then the Lagrangian becomes
+
+    <\equation*>
+      L<around*|[|p|]>=-<big|int><rsub|M>\<mathd\>x p<around*|(|x|)> ln
+      p<around*|(|x|)>+<big|sum><rsub|i>\<lambda\><rsub|i><around*|(|<big|int><rsub|M>\<mathd\>x
+      p<around*|(|x|)> f<rsub|i><around*|(|x|)>-<wide|f|\<bar\>><rsub|i>|)>+\<mu\><around*|(|1-<big|int><rsub|M>\<mathd\>x
+      p<around*|(|x|)>|)>,
+    </equation*>
+
+    where <math|<around*|{|\<lambda\><rsub|i>|}>> and <math|\<mu\>> are
+    Lagrangian multipliers. We have, at stable point <math|p<rsub|\<star\>>>,
+    for <math|\<forall\>x\<in\>M>,
+
+    <\equation*>
+      0=<frac|\<delta\>L|\<delta\>p><around*|[|p<rsub|\<star\>>|]><around*|(|x|)>=-ln
+      p<rsub|\<star\>><around*|(|x|)>+<big|sum><rsub|i>\<lambda\><rsub|i>
+      f<rsub|i><around*|(|x|)>-<around*|(|\<mu\>+1|)>,
+    </equation*>
+
+    implying
+
+    <\equation*>
+      p<rsub|\<star\>><around*|(|x|)>=<frac|exp<around*|{|-<big|sum><rsub|i=1><rsup|n>\<lambda\><rsub|i>
+      f<rsub|i><around*|(|x|)>|}>|Z<around*|(|\<lambda\><rsub|1>,\<ldots\>,\<lambda\><rsub|n>|)>>,
+    </equation*>
+
+    where <math|Z<around*|(|\<lambda\><rsub|1>,\<ldots\>,\<lambda\><rsub|n>|)>\<assign\><big|int><rsub|M>\<mathd\>x
+    exp<around*|{|-<big|sum><rsub|i=1><rsup|n>\<lambda\><rsub|i>
+    f<rsub|i><around*|(|x|)>|}>>. Constains
+    <math|-\<partial\>lnZ<around*|(|\<lambda\><rsub|1>,\<ldots\>,\<lambda\><rsub|n>|)>/\<partial\>\<lambda\><rsub|i>=<wide|f|\<bar\>><rsub|i>>
+    are automatically satisfied.
+  </proof>
+
+  <\remark>
+    If the observation is unique and is the energy. Then
+
+    <\equation*>
+      p<rsub|\<star\>><around*|(|x|)>=<frac|\<mathe\><rsup|-E<around*|(|x|)>>|<big|int><rsub|M>\<mathd\>x
+      \<mathe\><rsup|-E<around*|(|x|)>> >,
+    </equation*>
+
+    where <math|E> denotes the energy. This is just the Boltzmann
+    distribution.
+  </remark>
 
   <section|Review>
 
@@ -263,65 +411,6 @@
     </equation*>
   </theorem>
 
-  <subsubsection|Relation to Maximizing Entropy
-  Principle<reference|Information Theory and Statitical Mechanics>>
-
-  <\theorem>
-    [Maximizing Entropy Principle] Given a measure space <math|M> and a set
-    of observable <math|<around*|{|f<rsub|i>:M\<rightarrow\>\<bbb-R\>\|i=1,\<ldots\>,n|}>>.
-    For <math|D\<assign\><around*|{|x<rsub|1>,\<ldots\>,x<rsub|N>|}>> a
-    dataset. For any probability density function <math|p> on <math|M>, let
-    <math|H<around*|(|p|)>> its entropy. We have, if
-
-    <\equation*>
-      p<rsub|\<star\>>\<assign\>argmax<rsub|p>H<around*|(|p|)>
-    </equation*>
-
-    with constrains <math|\<bbb-E\><rsub|x\<sim\>p<rsub|\<star\>><around*|(|x|)>><around*|[|f<rsub|i><around*|(|x|)>|]>=\<bbb-E\><rsub|x\<sim\>D><around*|[|f<rsub|i><around*|(|x|)>|]>>
-    for all <math|i=1,\<ldots\>,n>, then <math|p<rsub|\<star\>><around*|(|x|)>>
-    must have the form
-
-    <\equation*>
-      p<rsub|\<star\>><around*|(|x|)>=<frac|\<mathe\><rsup|-E<around*|(|x|)>>|<big|int><rsub|M>\<mathd\>x<rprime|'>
-      \<mathe\><rsup|-E<around*|(|x<rprime|'>|)>>>,
-    </equation*>
-
-    where <math|E<around*|(|x|)>\<assign\>-<big|sum><rsub|i>\<lambda\><rsub|i>
-    f<rsub|i><around*|(|x|)>>.
-  </theorem>
-
-  <\proof>
-    Denote <math|<wide|f|\<bar\>><rsub|i>\<assign\>\<bbb-E\><rsub|x\<sim\>D><around*|[|f<rsub|i><around*|(|x|)>|]>>,
-    then the Lagrangian becomes
-
-    <\equation*>
-      L<around*|[|p|]>=-<big|int><rsub|M>\<mathd\>x p<around*|(|x|)> ln
-      p<around*|(|x|)>+<big|sum><rsub|i>\<lambda\><rsub|i><around*|(|<big|int><rsub|M>\<mathd\>x
-      p<around*|(|x|)> f<rsub|i><around*|(|x|)>-<wide|f|\<bar\>><rsub|i>|)>+\<mu\><around*|(|1-<big|int><rsub|M>\<mathd\>x
-      p<around*|(|x|)>|)>,
-    </equation*>
-
-    where <math|<around*|{|\<lambda\><rsub|i>|}>> and <math|\<mu\>> are
-    Lagrangian multipliers. We have, at stable point <math|p<rsub|\<star\>>>,
-    for <math|\<forall\>x\<in\>M>,
-
-    <\equation*>
-      0=<frac|\<delta\>L|\<delta\>p><around*|[|p<rsub|\<star\>>|]><around*|(|x|)>=-ln
-      p<rsub|\<star\>><around*|(|x|)>+<big|sum><rsub|i>\<lambda\><rsub|i>
-      f<rsub|i><around*|(|x|)>-<around*|(|\<mu\>+1|)>,
-    </equation*>
-
-    implying
-
-    <\equation*>
-      p<rsub|\<star\>><around*|(|x|)>=<frac|\<mathe\><rsup|-E<around*|(|x|)>>|<big|int><rsub|M>\<mathd\>x<rprime|'>
-      \<mathe\><rsup|-E<around*|(|x<rprime|'>|)>>>,
-    </equation*>
-
-    where <math|E<around*|(|x|)>\<assign\>-<big|sum><rsub|i>\<lambda\><rsub|i>
-    f<rsub|i><around*|(|x|)>>.
-  </proof>
-
   <subsection|Boltzmann Machine>
 
   <\definition>
@@ -472,7 +561,12 @@
   <section|References>
 
   <\enumerate-numeric>
-    <item>Information Theory and Statitical Mechanics, Jaynes.
+    <item><label|Information Theory, Axiomatic Foundations, Connections to
+    Statistics>Information Theory, Axiomatic Foundations, Connections to
+    Statistics.
+
+    <item><label|Information Theory and Statitical Mechanics,
+    Jaynes>Information Theory and Statitical Mechanics, Jaynes.
   </enumerate-numeric>
 </body>
 
@@ -481,21 +575,148 @@
 
 <\references>
   <\collection>
+    <associate|Information Theory and Statitical Mechanics,
+    Jaynes|<tuple|2|?>>
+    <associate|Information Theory, Axiomatic Foundations, Connections to
+    Statistics|<tuple|1|?>>
+    <associate|MathJax-Element-30-Frame|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Element-31-Frame|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Element-32-Frame|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Element-33-Frame|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Element-34-Frame|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Element-35-Frame|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Element-36-Frame|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Element-37-Frame|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Element-38-Frame|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Element-39-Frame|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Element-40-Frame|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Element-41-Frame|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-392|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-393|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-394|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-395|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-396|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-397|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-398|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-399|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-400|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-401|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-402|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-403|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-404|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-405|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-406|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-407|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-408|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-409|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-410|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-411|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-412|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-413|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-414|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-415|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-416|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-417|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-418|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-419|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-420|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-421|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-422|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-423|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-424|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-425|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-426|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-427|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-428|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-429|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-430|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-431|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-432|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-433|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-434|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-435|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-436|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-437|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-438|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-439|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-440|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-441|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-442|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-443|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-444|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-445|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-446|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-447|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-448|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-449|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-450|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-451|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-452|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-453|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-454|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-455|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-456|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-457|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-458|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-459|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-460|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-461|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-462|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-463|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-464|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-465|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-466|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-467|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-468|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-469|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-470|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-471|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-472|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-473|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-474|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-475|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-476|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-477|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-478|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-479|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-480|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-481|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-482|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-483|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-484|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-485|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-486|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-487|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-488|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-489|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-490|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-491|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-492|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-493|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-494|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-495|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-496|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-497|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-498|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|MathJax-Span-499|<tuple|<with|mode|<quote|math>|\<bullet\>>|?>>
+    <associate|Note: Information Theory, Axiomatic Foundations, Connections
+    to Statistics|<tuple|1|?>>
     <associate|auto-1|<tuple|1|?>>
-    <associate|auto-10|<tuple|3.1.2|?>>
-    <associate|auto-11|<tuple|3.1.3|?>>
-    <associate|auto-12|<tuple|3.1.4|?>>
+    <associate|auto-10|<tuple|3.1.1|?>>
+    <associate|auto-11|<tuple|3.1.2|?>>
+    <associate|auto-12|<tuple|3.1.3|?>>
     <associate|auto-13|<tuple|3.2|?>>
     <associate|auto-14|<tuple|3.2.1|?>>
     <associate|auto-15|<tuple|4|?>>
+    <associate|auto-16|<tuple|4|?>>
     <associate|auto-2|<tuple|2|?>>
     <associate|auto-3|<tuple|2.1|?>>
     <associate|auto-4|<tuple|2.1.1|?>>
     <associate|auto-5|<tuple|2.1.2|?>>
     <associate|auto-6|<tuple|2.2|?>>
-    <associate|auto-7|<tuple|3|?>>
-    <associate|auto-8|<tuple|3.1|?>>
-    <associate|auto-9|<tuple|3.1.1|?>>
+    <associate|auto-7|<tuple|2.3|?>>
+    <associate|auto-8|<tuple|3|?>>
+    <associate|auto-9|<tuple|3.1|?>>
   </collection>
 </references>
 
