@@ -189,12 +189,12 @@
     [Maximizing Entropy Principle]<reference|Information Theory and
     Statitical Mechanics, Jaynes> Given a measure space <math|M> and a set of
     observable <math|<around*|{|f<rsub|i>:M\<rightarrow\>\<bbb-R\>\|i=1,\<ldots\>,n|}>>.
-    For <math|D\<assign\><around*|{|x<rsub|1>,\<ldots\>,x<rsub|N>|}>> a
+    For <math|D\<assign\><around*|{|x<rsub|i>\<in\>M\|i=1,\<ldots\>,N|}>> a
     dataset. For any probability density function <math|p> on <math|M>, let
-    <math|H<around*|(|p|)>> its entropy. We have, if
+    <math|H<around*|[|p|]>> its entropy. We have, if
 
     <\equation*>
-      p<rsub|\<star\>>\<assign\>argmax<rsub|p>H<around*|(|p|)>
+      p<rsub|\<star\>>\<assign\>argmax<rsub|p>H<around*|[|p|]>
     </equation*>
 
     with constrains <math|\<bbb-E\><rsub|x\<sim\>p<rsub|\<star\>><around*|(|x|)>><around*|[|f<rsub|i><around*|(|x|)>|]>=\<bbb-E\><rsub|x\<sim\>D><around*|[|f<rsub|i><around*|(|x|)>|]>>
@@ -208,9 +208,12 @@
 
     where <math|Z<around*|(|\<lambda\><rsub|1>,\<ldots\>,\<lambda\><rsub|n>|)>\<assign\><big|int><rsub|M>\<mathd\>x
     exp<around*|{|-<big|sum><rsub|i=1><rsup|n>\<lambda\><rsub|i>
-    f<rsub|i><around*|(|x|)>|}>>. (Since we care about the relative value of
-    entropy, being continous or not is irrelavent in this situation. We can
-    use continous or discrete notations freely.)
+    f<rsub|i><around*|(|x|)>|}>>, with constrain <math|-\<partial\>ln
+    Z<around*|(|\<lambda\><rsub|1>,\<ldots\>,\<lambda\><rsub|n>|)>/\<partial\>\<lambda\><rsub|i>=<wide|f|\<bar\>><rsub|i>>.
+
+    (Since we care about the relative value of entropy, being continous or
+    not is irrelavent in this situation. We can use continous or discrete
+    notations freely.)
   </theorem>
 
   <\proof>
@@ -243,20 +246,40 @@
 
     where <math|Z<around*|(|\<lambda\><rsub|1>,\<ldots\>,\<lambda\><rsub|n>|)>\<assign\><big|int><rsub|M>\<mathd\>x
     exp<around*|{|-<big|sum><rsub|i=1><rsup|n>\<lambda\><rsub|i>
-    f<rsub|i><around*|(|x|)>|}>>. Constains
-    <math|-\<partial\>lnZ<around*|(|\<lambda\><rsub|1>,\<ldots\>,\<lambda\><rsub|n>|)>/\<partial\>\<lambda\><rsub|i>=<wide|f|\<bar\>><rsub|i>>
-    are automatically satisfied.
+    f<rsub|i><around*|(|x|)>|}>>. The constrain
+    <math|1-<big|int><rsub|M>\<mathd\>x p<around*|(|x|)>> is automatically
+    satisfied. Since
+
+    <\align>
+      <tformat|<table|<row|<cell|-<frac|\<partial\>|\<partial\>\<lambda\><rsub|i>>ln
+      Z<around*|(|\<lambda\><rsub|1>,\<ldots\>,\<lambda\><rsub|n>|)>>|<cell|=-<frac|1|Z<around*|(|\<lambda\><rsub|1>,\<ldots\>,\<lambda\><rsub|n>|)>>\<times\><frac|\<partial\>|\<partial\>\<lambda\><rsub|i>>
+      Z<around*|(|\<lambda\><rsub|1>,\<ldots\>,\<lambda\><rsub|n>|)>>>|<row|<cell|>|<cell|=<frac|1|Z<around*|(|\<lambda\><rsub|1>,\<ldots\>,\<lambda\><rsub|n>|)>>\<times\><big|int><rsub|M>\<mathd\>x
+      \<mathe\><rsup|-<big|sum><rsub|i=1><rsup|n>\<lambda\><rsub|i>
+      f<rsub|i><around*|(|x|)>> f<rsub|i><around*|(|x|)>>>|<row|<cell|>|<cell|=<big|int><rsub|M>\<mathd\>x
+      p<rsub|\<star\>><around*|(|x|)> f<rsub|i><around*|(|x|)>,>>>>
+    </align>
+
+    the constrain <math|<big|int><rsub|M>\<mathd\>x p<around*|(|x|)>
+    f<rsub|i><around*|(|x|)>-<wide|f|\<bar\>><rsub|i>> becomes
+
+    <\equation*>
+      -<frac|\<partial\>|\<partial\>\<lambda\><rsub|i>>ln
+      Z<around*|(|\<lambda\><rsub|1>,\<ldots\>,\<lambda\><rsub|n>|)>=<wide|f|\<bar\>><rsub|i>.
+    </equation*>
   </proof>
 
   <\remark>
-    If the observation is unique and is the energy. Then
+    If the observation is unique and is the energy. Then by replacing
+    <math|\<lambda\>\<rightarrow\>1/T>, <math|f\<rightarrow\>E>,
 
     <\equation*>
-      p<rsub|\<star\>><around*|(|x|)>=<frac|\<mathe\><rsup|-E<around*|(|x|)>>|<big|int><rsub|M>\<mathd\>x
-      \<mathe\><rsup|-E<around*|(|x|)>> >,
+      p<rsub|\<star\>><around*|(|x|)>=<frac|\<mathe\><rsup|-E<around*|(|x|)>/T>|Z<around*|(|T|)>
+      >,
     </equation*>
 
-    where <math|E> denotes the energy. This is just the Boltzmann
+    where <math|E> denotes the energy and
+    <math|Z<around*|(|T|)>\<assign\><big|int><rsub|M>\<mathd\>x
+    \<mathe\><rsup|-E<around*|(|x|)>/T>>. This is just the Boltzmann
     distribution.
   </remark>
 
@@ -479,6 +502,51 @@
     \<pi\>> \<mathe\><rsup|-b<rsub|<wide|\<alpha\>|^>><rsup|2>/2>
     exp<around*|(|<frac|1|2><around*|(|<big|sum><rsub|\<beta\>\<neq\><wide|\<alpha\>|^>>W<rsub|<wide|\<alpha\>|^>\<beta\>>x<rsup|\<beta\>><rsub|>+b<rsub|<wide|\<alpha\>|^>>|)><rsup|2>|)>.
   </equation*>
+
+  <\lemma>
+    [Gaussian Integral] Let <math|x\<in\>\<bbb-R\><rsup|n>> and
+    <math|A\<in\>\<bbb-R\><rsup|n>\<times\>\<bbb-R\><rsup|n>> a real
+    symmetric matrix, we have
+
+    <\equation*>
+      <big|int><rsub|\<bbb-R\><rsup|n>>\<mathd\>x
+      \<mathe\><rsup|-<frac|1|2>x<rsup|T>\<cdot\>A\<cdot\>x+J<rsup|T>\<cdot\>x>=<sqrt|<frac|<around*|(|2
+      \<pi\>|)><rsup|n>|det<around*|[|A|]>>> \<mathe\><rsup|<frac|1|2>
+      J<rsup|T>\<cdot\>A<rsup|-1>\<cdot\>J>.
+    </equation*>
+  </lemma>
+
+  <\theorem>
+    [Activity Rule of Gaussian Boltzmann Machine] Let
+    <math|<around*|(|W,b|)>> an <math|n>-dimensional binary Boltzmann
+    machine, then
+
+    <\align>
+      <tformat|<table|<row|<cell|<frac|\<partial\>L|\<partial\>W>=>|<cell|-\<bbb-E\><rsub|x\<sim\>D><around*|[|x\<otimes\>x|]>+K-<around*|(|K\<cdot\>b|)>\<otimes\><around*|(|K\<cdot\>b|)>;>>|<row|<cell|<frac|\<partial\>L|\<partial\>b>=>|<cell|-\<bbb-E\><rsub|x\<sim\>D><around*|[|x|]>-K\<cdot\>b,>>>>
+    </align>
+
+    where <math|K\<assign\><wide|W|~><rsup|-1>> and
+    <wide|W|~>:=<math|W-\<delta\>>. Since
+    <math|K\<cdot\><wide|W|~>=\<delta\>>, we have
+    <math|\<mathd\>K=-K\<cdot\>\<mathd\><wide|W|~>\<cdot\>K>=<math|-K\<cdot\>\<mathd\>W\<cdot\>K>.
+  </theorem>
+
+  <\proof>
+    We have <math|E=-<frac|1|2> <around*|(|W<rsub|\<alpha\>\<beta\>>-\<delta\><rsub|\<alpha\>\<beta\>>|)>x<rsup|\<alpha\>>x<rsup|\<beta\>>-
+    b<rsub|\<alpha\>> x<rsup|\<alpha\>>+<frac|1|2>b<rsub|\<alpha\>>b<rsup|\<alpha\>>>.
+    Thus <math|A=W-\<delta\>>, <math|J=-b>. <math|K\<assign\>A<rsup|-1>>,
+
+    <\align>
+      <tformat|<table|<row|<cell|<big|int><rsub|M>\<mathd\>x
+      p<rsub|E><around*|(|x|)> <frac|\<partial\>E|\<partial\>W<rsub|\<alpha\>\<beta\>>><around*|(|x|)>>|<cell|=-<big|int><rsub|M>\<mathd\>x
+      p<rsub|E><around*|(|x|)>x<rsup|\<alpha\>>x<rsup|\<beta\>>>>|<row|<cell|>|<cell|=<frac|<frac|\<partial\>|\<partial\>J<rsup|\<alpha\>>><frac|\<partial\>|\<partial\>J<rsup|\<beta\>>><sqrt|<frac|<around*|(|2
+      \<pi\>|)><rsup|n>|det<around*|[|A|]>>> \<mathe\><rsup|<frac|1|2>
+      J<rsup|T>\<cdot\>A<rsup|-1>\<cdot\>J> |<sqrt|<frac|<around*|(|2
+      \<pi\>|)><rsup|n>|det<around*|[|A|]>>> \<mathe\><rsup|<frac|1|2>
+      J<rsup|T>\<cdot\>A<rsup|-1>\<cdot\>J>>>>|<row|<cell|>|<cell|=-K<rsup|\<alpha\>\<beta\>>+<around*|(|K\<cdot\>J|)><rsup|\<alpha\>>
+      <around*|(|K\<cdot\>J|)><rsup|\<beta\>>.>>>>
+    </align>
+  </proof>
 
   <\remark>
     [TODO: Re-write this] The probabilistic model where
